@@ -1,0 +1,59 @@
+# .github/workflows/linters.yml
+
+name: Code Linters
+
+# Controls when the action will run.
+# Triggers the workflow on push or pull request events but only for the main branch.
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # Python Linter Job
+  lint_python:
+    name: Lint Python
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install flake8
+
+      - name: Run Flake8 Linter
+        # This command runs flake8 recursively on the 'server' directory.
+        run: flake8 server
+
+      - name: Python Linting Complete
+        run: echo "✅ Python linting completed successfully."
+
+  # JavaScript Linter Job
+  lint_function_js:
+    name: Lint JavaScript
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20' # Specify the node version you want to use
+
+      - name: Install JSHint
+        run: npm install jshint
+
+      - name: Run JSHint Linter
+        # 'npx' runs the locally installed jshint package.
+        # The glob pattern 'database/**/*.js' targets all .js files recursively.
+        run: npx jshint database/**/*.js
+
+      - name: JavaScript Linting Complete
+        run: echo "✅ JavaScript linting completed successfully."

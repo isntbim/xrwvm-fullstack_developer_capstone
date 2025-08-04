@@ -13,6 +13,7 @@ sentiment_analyzer_url = os.getenv(
 
 # def get_request(endpoint, **kwargs):
 # Add code for get requests to back end
+
 def get_request(endpoint, **kwargs): # add /n
     params = ""
     if (kwargs):
@@ -34,6 +35,7 @@ def get_request(endpoint, **kwargs): # add /n
 # def analyze_review_sentiments(text):
 # request_url = sentiment_analyzer_url+"analyze/"+text
 # Add code for retrieving sentiments
+
 def analyze_review_sentiments(text):
     request_url = sentiment_analyzer_url+"analyze/"+text
     try:
@@ -46,8 +48,9 @@ def analyze_review_sentiments(text):
 
 # def post_review(data_dict):
 # Add code for posting review
+
 def post_review(data_dict):
-    request_url = backend_url+"/insert_review"
+    request_url = backend_url + "/insert_review"
     try:
         response = requests.post(request_url, json=data_dict)
         response.raise_for_status()

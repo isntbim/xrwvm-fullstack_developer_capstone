@@ -18,13 +18,13 @@ var Dealerships = require('./dealership');
 
 // Populate databases
 Reviews.deleteMany({}).then(function() {
-  Reviews.insertMany(reviews_data['reviews']);
+  Reviews.insertMany(reviews_data.reviews);
 }).catch(function(error) {
   console.log("Error populating reviews: " + error);
 });
 
 Dealerships.deleteMany({}).then(function() {
-  Dealerships.insertMany(dealerships_data['dealerships']);
+  Dealerships.insertMany(dealerships_data.dealerships);
 }).catch(function(error) {
   console.log("Error populating dealerships: " + error);
 });
@@ -85,17 +85,17 @@ app.get('/fetchDealer/:id', function(req, res) {
 app.post('/insert_review', express.raw({ type: '*/*' }), function(req, res) {
   var data = JSON.parse(req.body);
   Reviews.find().sort({ id: -1 }).then(function(documents) {
-    var new_id = documents[0]['id'] + 1;
+    var new_id = documents[0].id + 1;
     var review = new Reviews({
       "id": new_id,
-      "name": data['name'],
-      "dealership": data['dealership'],
-      "review": data['review'],
-      "purchase": data['purchase'],
-      "purchase_date": data['purchase_date'],
-      "car_make": data['car_make'],
-      "car_model": data['car_model'],
-      "car_year": data['car_year'],
+      "name": data.name,
+      "dealership": data.dealership,
+      "review": data.review,
+      "purchase": data.purchase,
+      "purchase_date": data.purchase_date,
+      "car_make": data.car_make,
+      "car_model": data.car_model,
+      "car_year": data.car_year,
     });
 
     review.save().then(function(savedReview) {
